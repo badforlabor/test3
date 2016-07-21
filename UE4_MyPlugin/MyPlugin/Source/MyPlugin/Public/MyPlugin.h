@@ -29,6 +29,8 @@ private:
 public:
 	TSharedPtr<class FMyPluginProcessor> p;
 	TSharedPtr<STextBlock> TextSpeed;
+	TSharedPtr<SEditableText> FPSMini;
+	TSharedPtr<SEditableText> FPSMax;
 private:
 	TSharedPtr<class FUICommandList> PluginCommands;
 };

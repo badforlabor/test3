@@ -77,6 +77,18 @@ public:
 			MyModule->TextSpeed->SetText(FString::Printf(TEXT("Current Speed:%f"), GetCurrentSpeed()));
 		}
 	}
+	void MiniFPS(const FText& NewText, ETextCommit::Type CommitInfo)
+	{
+		FFloatRange& oldv = GEngine->SmoothedFrameRateRange;
+		FString v = NewText.ToString();
+		GEngine->SmoothedFrameRateRange = FFloatRange(FPlatformString::Atof(*v), oldv.GetUpperBoundValue());
+	}
+	void MaxFPS(const FText& NewText, ETextCommit::Type CommitInfo)
+	{
+		FFloatRange& oldv = GEngine->SmoothedFrameRateRange;
+		FString v = NewText.ToString();
+		GEngine->SmoothedFrameRateRange = FFloatRange(oldv.GetLowerBoundValue(), FPlatformString::Atof(*v));
+	}
 };
 FReply FMyPluginProcessor::OnAddSpeed(int) 
 {
@@ -165,6 +177,7 @@ TSharedRef<SDockTab> FMyPluginModule::OnSpawnPluginTab(const FSpawnTabArgs& Spaw
 	//FMyPluginProcessor* p = (new FMyPluginProcessor);
 	//p = MakeShareable(new FMyPluginProcessor);
 	//FMyPluginProcessor* p = new FMyPluginProcessor;
+	FFloatRange& oldv = GEngine->SmoothedFrameRateRange;
 
 	return SNew(SDockTab)
 		[
@@ -187,6 +200,34 @@ TSharedRef<SDockTab> FMyPluginModule::OnSpawnPluginTab(const FSpawnTabArgs& Spaw
 					SNew(SButton).Text(FText::FromString("slow speed"))
 					.OnClicked(FOnClicked::CreateSP<FMyPluginProcessor, int>(p.Get(), &FMyPluginProcessor::OnSubSpeed, 0))
 					//
+				]
+			]
+			+ SVerticalBox::Slot()
+			.MaxHeight(25)
+			[
+				SNew(SHorizontalBox)
+				+ SHorizontalBox::Slot()				
+				[
+					SNew(STextBlock).Text(FText::FromString(TEXT("fps range:")))
+				]
+				+ SHorizontalBox::Slot()
+					.MaxWidth(50)
+				[
+					SAssignNew(FPSMini, SEditableText)
+					.Text(FText::FromString(FString::Printf(TEXT("%.1f"), oldv.HasLowerBound() ? oldv.GetLowerBoundValue() : 0)))
+					.OnTextCommitted(p.Get(), &FMyPluginProcessor::MiniFPS)
+				]
+				+ SHorizontalBox::Slot()
+					.MaxWidth(20)
+					[
+						SNew(STextBlock).Text(FText::FromString(TEXT(" ~ ")))
+					]
+				+ SHorizontalBox::Slot()
+					.MaxWidth(50)
+				[
+					SAssignNew(FPSMax, SEditableText)
+					.Text(FText::FromString(FString::Printf(TEXT("%.1f"), oldv.HasUpperBound() ? oldv.GetUpperBoundValue() : 10000)))
+					.OnTextCommitted(p.Get(), &FMyPluginProcessor::MaxFPS)
 				]
 			]
 		];
