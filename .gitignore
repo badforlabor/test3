@@ -1,0 +1,6 @@
+Debug/
+screenshots/
+*.sdf
+*.suo
+.DS_Store
+*.db
