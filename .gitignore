@@ -4,3 +4,14 @@ screenshots/
 *.suo
 .DS_Store
 *.db
+Release/
+Debug_static/
+Static_Release/
+*Debug*/
+*Release*/
+*.plg
+doc_src/
+*.user
+doc/
+docs/
+*.opendb

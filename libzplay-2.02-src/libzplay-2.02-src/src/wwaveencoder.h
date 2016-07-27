@@ -69,7 +69,7 @@ private:
 
 	unsigned int c_nDataSize;
 
-
+	int frame_cnt;
 
 };
 

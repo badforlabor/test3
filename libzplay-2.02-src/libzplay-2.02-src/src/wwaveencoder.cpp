@@ -109,7 +109,7 @@ int WWaveEncoder::Initialize(unsigned int nSampleRate, unsigned int nNumberOfCha
 			TEncoderSeekCallback seek_callback,
 			TEncoderTellCallback tell_callback)
 {
-
+	frame_cnt = 0;
 
 
 	c_read_calllback = read_callback;
@@ -187,7 +187,7 @@ int WWaveEncoder::EncodeSamples(void *pSamples, unsigned int nNumberOfSamples)
 	}
 
 	c_nDataSize += c_write_callback(pSamples, nNumberOfSamples * c_nBlockAlign, c_user_data);
-	
+	frame_cnt++;
 
 	return 1;
 }

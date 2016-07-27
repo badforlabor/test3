@@ -3664,8 +3664,10 @@ int WINAPI WMp3x::_ThreadFuncPCM(void* lpdwParam)
 
 
 	int ret;
+	int loopcnt = 0;
 	while(1)
 	{
+		loopcnt++;
 		EnterCriticalSection(&instance->c_CS_DecodingLoop);
 		if(instance->c_fRunDecodingLoop == 0)
 		{
