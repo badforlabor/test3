@@ -42,7 +42,7 @@ int main(int argc, char **argv)
 												info.Length.hms.millisecond);
 
 	// set graph type to AREA, left channel on top
-	player->SetFFTGraphParam(gpGraphType, gtBarsRightOnTop);
+	player->SetFFTGraphParam(gpGraphType, gtLinesRightOnTop);
 	// set linear scale
 	player->SetFFTGraphParam(gpHorizontalScale, gsLinear);
 

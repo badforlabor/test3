@@ -38,7 +38,7 @@ int fReverse = 0;
 TStreamStatus status;
 TStreamTime pos;
 
-
+extern ZPlay* CreateZPlay2();
 
 int main(int argc, char **argv)
 {
@@ -47,7 +47,7 @@ int main(int argc, char **argv)
 
 
 	// create class instance
-	ZPlay *player = CreateZPlay();
+	ZPlay *player = CreateZPlay2();// CreateZPlay();
 
 	// chek if we have class instance
 	if(player == 0)
@@ -230,7 +230,10 @@ int main(int argc, char **argv)
 		else if(status.fPause)
 			st = "Pause";
 		else
-			st = "Stop ";		
+		{
+			st = "Stop ";
+			break;
+		}
 	
 		// get current position
 		player->GetPosition(&pos);
