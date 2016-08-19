@@ -4,3 +4,7 @@
 
 #include "Engine.h"
 
+DECLARE_LOG_CATEGORY_EXTERN(MyLog, Verbose, All);
+
+extern void Debug(const FString& msg);
+extern void Debug(const TCHAR* msg);

@@ -1,23 +1,22 @@
 // Fill out your copyright notice in the Description page of Project Settings.
+
 /************************************************************************/
-/* 代理用法                                                             */
+/* 测试智能指针                                                         */
 /************************************************************************/
 #pragma once
 
 #include "Components/ActorComponent.h"
-#include "TestDelegateActorComponent.generated.h"
+#include "TestSharedPtrActorComponent.generated.h"
 
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMyActionDelegate);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class UE4PRIMER_API UTestDelegateActorComponent : public UActorComponent
+class UE4PRIMER_API UTestSharedPtrActorComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UTestDelegateActorComponent();
+	UTestSharedPtrActorComponent();
 
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -25,9 +24,6 @@ public:
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
-public:
-	UPROPERTY(BlueprintAssignable)
-		FMyActionDelegate OnStarted;
 		
 	
 };

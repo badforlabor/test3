@@ -21,7 +21,6 @@ void UMyActorComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-
 }
 
 

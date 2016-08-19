@@ -1,23 +1,22 @@
 // Fill out your copyright notice in the Description page of Project Settings.
+
 /************************************************************************/
-/* 代理用法                                                             */
+/* 测试FText, FString, FName, 本地化文字, 字符串与float的转化           */
 /************************************************************************/
 #pragma once
 
 #include "Components/ActorComponent.h"
-#include "TestDelegateActorComponent.generated.h"
+#include "TestLocalTextActorComponent.generated.h"
 
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMyActionDelegate);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class UE4PRIMER_API UTestDelegateActorComponent : public UActorComponent
+class UE4PRIMER_API UTestLocalTextActorComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UTestDelegateActorComponent();
+	UTestLocalTextActorComponent();
 
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -25,9 +24,6 @@ public:
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
-public:
-	UPROPERTY(BlueprintAssignable)
-		FMyActionDelegate OnStarted;
 		
 	
 };
