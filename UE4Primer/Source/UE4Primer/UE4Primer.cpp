@@ -17,3 +17,11 @@ void Debug(const TCHAR* msg)
 {	
 	Debug(FString(msg));
 }
+void Debug(const ANSICHAR* msg)
+{
+	Debug(FString(ANSI_TO_TCHAR(msg)));
+}
+void Debug(const FText& msg)
+{
+	Debug(msg.ToString());
+}
