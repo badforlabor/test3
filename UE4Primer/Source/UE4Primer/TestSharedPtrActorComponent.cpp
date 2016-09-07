@@ -122,6 +122,21 @@ void TestSharedPtr()
 		t2->ShowMe();
 	}
 	Debug(TEXT("tag 4"));
+	{
+		TSharedPtr<FPtrTest1> t1 = MakeShareable(new FPtrTest1());
+		t1 = NULL;	// 计数器变成0
+		if (!t1.IsValid())
+		{
+			Debug("t1 is not valid");
+		}
+
+		TSharedPtr<FPtrTest1> t2 = MakeShareable(new FPtrTest1());
+		t2.Reset();
+		if (!t2.IsValid())
+		{
+			Debug("t2 is not valid");
+		}
+	}
 }
 
 void TestSharedRef()
@@ -145,6 +160,28 @@ void TestSharedRef()
 			{
 				TSharedPtr<FPtrTest1> t3 = t2;	// 隐式转化
 			}
+		}
+	}
+
+	// 共享引用如何reset？
+	// 共享引用增加计数了吗？
+	{
+		TSharedPtr<FPtrTest1> t1(new FPtrTest1);
+		{
+			int a = t1.GetSharedReferenceCount();	// 此时计数为1
+			// 显示转化
+			TSharedRef<FPtrTest1> t2 = t1.ToSharedRef();
+			int b = t1.GetSharedReferenceCount();	// 此时计数为2，因为多了一个实例：t2
+			int c = t2.GetSharedReferenceCount();	// 同样，计数也为2
+			Debug(FString::Printf(TEXT("shared count, a=%d, b=%d, c=%d"), a, b, c));
+
+			t1 = NULL;	// 此时t1变成无效的了，t2的计数是1
+			if (t2.GetSharedReferenceCount() > 0)
+			{
+				Debug(FString::Printf(TEXT("shared count, a=%d"), t2.GetSharedReferenceCount()));
+			}
+			
+			// t2 = NULL; // 非法的赋值方式
 		}
 	}
 }
